@@ -1,8 +1,8 @@
 require 'rails/generators'
 require 'rails/generators/migration'
 
-module Invitation
-  class InvitationGenerator < Rails::Generators::Base
+module Invitable
+  class InvitableGenerator < Rails::Generators::Base
     include Rails::Generators::Migration
 
     def self.source_root
