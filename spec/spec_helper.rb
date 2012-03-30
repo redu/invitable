@@ -1,8 +1,10 @@
-require 'invitable'
 require 'sqlite3'
+require 'invitable'
+require 'active_record'
 require 'factory_girl'
 require 'shoulda-matchers'
 
+Dir["app/models/**/*.rb"].each { |f| require f }
 Dir["spec/factories/**/*.rb"].each { |f| require f }
 
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')

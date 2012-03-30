@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   end
 end
 
-describe Invitable::Invitation do
+describe Invitation do
 
   subject {
     user = Factory(:user)
@@ -44,9 +44,9 @@ describe Invitable::Invitation do
       user = Factory(:user)
       invitation = FactoryGirl.build(:invitation, :user => user, :hostable => user, :email => subject.email)
       invitation.save.should be_true
-      expect {Invitable::Invitation.find(invitation.id)}.should_not raise_error
+      expect {Invitation.find(invitation.id)}.should_not raise_error
       user.destroy.should_not be_nil
-      lambda {Invitable::Invitation.find(invitation.id)}.should raise_error
+      lambda {Invitation.find(invitation.id)}.should raise_error
     end
   end
 
@@ -61,7 +61,7 @@ describe Invitable::Invitation do
       subject.save.should be_true
       subject.accept!(Factory(:user)).should be_true
       expect {
-        Invitable::Invitation.find(subject.id)
+        Invitation.find(subject.id)
       }.should raise_error
     end
 
@@ -87,10 +87,10 @@ describe Invitable::Invitation do
 
     it "Create and send email invitation with static method" do
       expect {
-        invitation = Invitable::Invitation.invite(:user => subject.user, :hostable => subject.hostable, :email => subject.email) do |invitation|
+        invitation = Invitation.invite(:user => subject.user, :hostable => subject.hostable, :email => subject.email) do |invitation|
           # Send email block
         end
-      }.should change { Invitable::Invitation.all.count }.from(0).to(1)
+      }.should change { Invitation.all.count }.from(0).to(1)
     end
 
     it "User can delete invitations" do

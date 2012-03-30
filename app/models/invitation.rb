@@ -1,4 +1,3 @@
-module Invitable
   class Invitation < ActiveRecord::Base
     validates_presence_of :email, :hostable, :user
     validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/
@@ -41,4 +40,3 @@ module Invitable
       self.generate_token unless Invitation.where(:token => self.token).empty?
     end
   end
-end
