@@ -1,6 +1,8 @@
 # Invitable
 
-TODO: Write a gem description
+Rails 3 generic mail invitation manager.
+
+**NOTE:** You should have a `User` model, that identify the sender of invite.
 
 ## Installation
 
@@ -16,9 +18,49 @@ Or install it yourself as:
 
     $ gem install invitable
 
+
+## Configure
+
+* Include the module `Invitable::Base` on User model.
+
+  ```ruby
+  class User < ActiveRecord::Base
+    include Invitable::Base
+  end
+  ```
+
+*  Define a method process_invitation! on your invitable model. This method contains the business logic related to acceptance of invitations
+
+  ```ruby
+  class User < ActiveRecord::Base
+    include Invitable::Base
+
+    # invitee => User instance
+    # invitation => Invitation instance
+    def process_invitation!(invitee, invitation)
+      # invitations between users are friendships invitations
+      self.friends << invitee
+    end
+  end
+  ```
+
 ## Usage
 
-TODO: Write usage instructions here
+* Create invitation with send email logic. When invitation is accepted, the block is executed.
+
+```ruby
+Invitation.invite(:user => user,
+                  :hostable => user,
+                  :email => email) do |invitation|
+  UserMailer.friendship_confirmation(invitation).deliver
+end
+```
+* Accept invitation
+
+```ruby
+invitation = Invitation.first()
+invitation.accept!(new_user)
+```
 
 ## Contributing
 
