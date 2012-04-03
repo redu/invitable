@@ -21,6 +21,16 @@ Or install it yourself as:
 
 ## Configure
 
+* Run migration generator
+  ```
+  rails generate invitable:migration
+  ```
+
+* Run the migrations
+  ```
+  rake db:migrate
+  ```
+
 * Include the module `Invitable::Base` on User model.
 
   ```ruby
