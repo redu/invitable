@@ -14,10 +14,8 @@
       invitation = Invitation.create(params)
       if invitation.valid?
         block.call(invitation) if block_given?
-        invitation
-      else
-        invitation.errors
       end
+      invitation
     end
 
     def send_email(&block)
@@ -25,14 +23,14 @@
     end
     alias :resend_email :send_email
 
-    # hostable => entidate ao qual o convidado (invitee) será associado
+    # hostable => entity to which the invitee will be associated
     def accept!(invitee)
-      self.hostable.process_invitation!(invitee, self)
+      self.hostable.process_invitation!(invitee, self) if self.valid?
     end
 
     protected
     def validate_invitee
-      errors.add(:invitee,"Não pode convidar a si próprio") if (self.email and self.user.email == self.email)
+      errors.add(:invitee,"You can't invite yourself.") if (self.email and self.user.email == self.email)
     end
 
     def generate_token
