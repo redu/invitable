@@ -18,7 +18,7 @@ describe Invitation do
   xit { should validate_uniqueness_of :token }
 
   context ':Callbacks:' do
-    it 'Token should be gerenated before validate invitation' do
+    it 'Token should be generated before validate invitation' do
       subject.token = nil
       subject.should be_valid
       subject.token.should_not be_nil
@@ -68,7 +68,7 @@ describe Invitation do
 
   context ':Friends invitations:' do
 
-    it "User can invite many other users" do
+    it "User can invite other user" do
       subject.save
       expect {
         subject.accept!(Factory(:user)).should == subject
@@ -85,7 +85,6 @@ describe Invitation do
 
     it "Invitation can not be accepted if it is not saved" do
       invitation = FactoryGirl.build(:invitation, :email => nil)
-      invitation.should_not be_valid
       invitation.accept!(Factory(:user)).should be_nil
     end
 

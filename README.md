@@ -66,6 +66,7 @@ Invitation.invite(:user => user,
 end
 ```
 * Accept invitation
+The parameter of method ```accept!``` represents an instance of invited user.
 
 ```ruby
 invitation = Invitation.first()
