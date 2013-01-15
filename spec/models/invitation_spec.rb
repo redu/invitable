@@ -72,7 +72,7 @@ describe Invitation do
       subject.save
       expect {
         subject.accept!(Factory(:user)).should == subject
-      }.should change(Invitation, :count).by(-1)
+      }.to change(Invitation, :count).by(-1)
     end
 
     it "Invites to same email should not be valid when sended to same hostable" do
@@ -95,7 +95,7 @@ describe Invitation do
           invitation.email = 'change@email.org'
         end
         i.email.should == 'change@email.org'
-      }.should change { Invitation.all.count }.from(0).to(1)
+      }.to change { Invitation.all.count }.from(0).to(1)
     end
 
     it "User can delete invitations" do
