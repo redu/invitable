@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "factory_girl", "~> 2.2"
   s.add_development_dependency "shoulda-matchers"
 
-  s.add_runtime_dependency "rails", "~>3.2.13"
+  s.add_runtime_dependency "rails", ">= 3.0.10"
 end
